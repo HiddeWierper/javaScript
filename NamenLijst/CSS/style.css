@@ -1,0 +1,7 @@
+li {
+    cursor: pointer;
+}
+
+body {
+    transition: 0.5s;
+}

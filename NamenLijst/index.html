@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>aids</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="CSS/style.CSS">
+</head>
+
+<body>
+  <input id="naam" type="text" placeholder="naam" onblur="getFirstname()">
+  <input id="achternaam" type="text" placeholder="achternaam" onblur="getLastname()">
+  <button onclick="printName()" id="addName">Klik mij</button>
+  <button onclick="removeAll()" style="float: right;">Wis alles</button>
+
+  <fieldset style="min-height: 100px">
+  <legend> Namenlijst </legend>
+  <ul id="nameList"></ul>
+  </fieldset>
+
+  <script src="JS/index.js"></script>
+</body>
+
+</html>
