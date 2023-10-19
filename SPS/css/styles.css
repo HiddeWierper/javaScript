@@ -1,0 +1,70 @@
+style.css .title--text {
+    text-align: center;
+    font-size: 50px;
+    font-family: Verdana;
+    font-style: italic;
+    color: coral;
+    padding: 0;
+    margin: 0;
+    float: left;
+
+}
+
+
+.hand1,
+.hand2 {
+    min-width: 30%;
+    max-width: 30%;
+    min-height: 60%;
+    border: 3px solid black;
+    box-sizing: border-box;
+    object-fit: contain;
+}
+
+.center {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+}
+
+.vs {
+    text-align: center;
+    margin: 50px 100px;
+}
+
+.bottom {
+    display: flex;
+    margin-top: 100px;
+    gap: 30px;
+    justify-content: center;
+}
+
+.rock,
+.paper,
+.scissors {
+    width: 150px;
+    height: 150px;
+    border: 2px solid black;
+    transition: 0.5s;
+}
+
+.rock:hover,
+.paper:hover,
+.scissors:hover {
+    scale: 1.02;
+    transition: 0.5s;
+}
+
+
+
+table,
+td,
+th {
+    border: 1px solid black;
+}
+
+table {
+    font-size: x-large;
+}
