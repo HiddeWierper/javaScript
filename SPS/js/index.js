@@ -25,9 +25,6 @@ function selected(hand) {
 }
 
 function checkHands() {
-
-
-
   switch (true) {
     case leftHand.src.includes("rock.png") &&
       rightHand.src.includes("rock.png"):
@@ -88,7 +85,7 @@ function checkHands() {
   } 
   else {
     rondenummer = 1;
-    setTimeout(resetAll, 3000);
+    resetAll();
     
   }
 
@@ -116,11 +113,13 @@ function checkHands() {
 
 
 function resetAll(){
+  document.getElementById("left").style.border = "3px solid black";
+  document.getElementById("right").style.border = "3px solid black";
   leftHand.src = "";
   rightHand.src = "";
   r1.textContent = "-";
   r2.textContent = "-";
   r3.textContent = "-";
-  document.getElementById("left").style.border = "3px solid black";
-  document.getElementById("right").style.border = "3px solid black";
+
+
 }
