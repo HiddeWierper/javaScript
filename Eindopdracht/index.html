@@ -1,4 +1,3 @@
-Index.html
 <!DOCTYPE html>
 <html>
 
@@ -90,7 +89,7 @@ Index.html
           <div class="score--indicator bottom--item">
             <p class="temp--score" id="tkind--p1">0</p>
             <p class="temp--score" id="fkind--p1">0</p>
-            <p class="temp--score" id="fouse--p1">0</p>
+            <p class="temp--score" id="full-house--p1">0</p>
             <p class="temp--score" id="small--p1">0</p>
             <p class="temp--score" id="large--p1">0</p>
             <p class="temp--score" id="yahtzee--p1">0</p>
@@ -128,11 +127,11 @@ Index.html
       </div>
       <!--Alle dobbelstenen appart-->
       <div class="table main--item">
-        <img class="dice" id="die1" src="Images/Dice-1.png">
-        <img class="dice" id="die2" src="Images/Dice-1.png">
-        <img class="dice" id="die3" src="Images/Dice-1.png">
-        <img class="dice" id="die4" src="Images/Dice-1.png">
-        <img class="dice" id="die5" src="Images/Dice-1.png">
+        <img class="dice" onclick="lockDice('die1')" id="die1" src="Images/1.png">
+        <img class="dice" onclick="lockDice('die2')" id="die2" src="Images/2.png">
+        <img class="dice" onclick="lockDice('die3')" id="die3" src="Images/3.png">
+        <img class="dice" onclick="lockDice('die4')" id="die4" src="Images/4.png">
+        <img class="dice" onclick="lockDice('die5')" id="die5" src="Images/5.png">
       </div>
       <!-- alles in p2 is hetzelfde als p1, als je niet de 2 player versie wil maken haal deze div dan weg en verander de header-->
       <div class="p2 player main--item">
@@ -223,12 +222,12 @@ Index.html
 
     </div>
     <div class=footer>
-      <h1>Gemaakt door:</h1>
+      <h1>Gemaakt door: Hidde</h1>
 
     </div>
   </div>
 
-  <script src="Index.js"></script>
+  <script src="index.js"></script>
 </body>
 
 </html>
