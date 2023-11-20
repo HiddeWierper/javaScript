@@ -5,12 +5,20 @@ let highscore = 0;
 let p1Turn = true;
 let dice = [];
 let hold = false;
+let playerTurn = "p1";
+
+var newStone = [];
 
 let one = 0;
 let two = 0;
 let three = 0;
 let four = 0;
 let five = 0;
+
+let playerScores = {
+  p1: { one: 0, two: 0, three: 0, four: 0, five: 0 },
+  p2: { one: 0, two: 0, three: 0, four: 0, five: 0 }
+};
 
 
 const rolls = document.getElementById("rolls");
@@ -20,14 +28,19 @@ const die3 = document.getElementById("die3");
 const die4 = document.getElementById("die4");
 const die5 = document.getElementById("die5");
 
-const acesp1 = document.getElementById("aces--p1");
-const twosp1 = document.getElementById("twos--p1");
-const threesp1 = document.getElementById("threes--p1");
-const foursp1 = document.getElementById("fours--p1");
-const fivesp1 = document.getElementById("fives--p1");
-const sixesp1 = document.getElementById("sixes--p1");
 
-
+function swapTurn() {
+  if (p1Turn === true) {
+      p1Turn = false;
+      playerTurn = "p2"
+      document.getElementById("turn").textContent = "Player 2"
+  } else {
+      playerTurn = "p1"
+      document.getElementById("turn").textContent = "Player 1"
+      p1Turn = true;
+  }
+  roll()
+}
 
 let dieLock1 = false;
 let dieLock2 = false;
@@ -60,11 +73,25 @@ function roll() {
     die5.src = randomRoll();
     five = getValue(die5);
     }
+
+    console.log(playerTurn);
+
+    playerScores[playerTurn].one = one;
+    playerScores[playerTurn].two = two;
+    playerScores[playerTurn].three = three;
+    playerScores[playerTurn].four = four;
+    playerScores[playerTurn].five = five;
+ 
+    newStone.length = 0;
+    newStone.push(one, two, three, four, five);
+    console.log(newStone);
   
     rolls.textContent = rollsLeft;
     }
+    fullHouse();
+    checkScore();
   }
-  checkScore();
+  calculateTotalTop();
 } 
 
 function randomRoll() {
@@ -73,26 +100,25 @@ function randomRoll() {
   return rollDice[randomDice];
 }
 
-function getValue(dieId){
+function getValue(dieId) {
   let number = 0;
-  let die = document.getElementById(dieId);
 
   if (dieId.src.includes("1.png")) {
     number = 1;
-} else if (dieId.src.includes("2.png")) {
+  } else if (dieId.src.includes("2.png")) {
     number = 2;
-} else if (dieId.src.includes("3.png")) {
+  } else if (dieId.src.includes("3.png")) {
     number = 3;
-} else if (dieId.src.includes("4.png")) {
+  } else if (dieId.src.includes("4.png")) {
     number = 4;
-} else if (dieId.src.includes("5.png")) {
+  } else if (dieId.src.includes("5.png")) {
     number = 5;
-} else if (dieId.src.includes("6.png")) {
+  } else if (dieId.src.includes("6.png")) {
     number = 6;
+  }
+  return number;
 }
- return number;
- 
-}
+
 
 let unlock1 = 0;
 let unlock2 = 0;
@@ -140,77 +166,198 @@ function borderChange(a, b) {
   }
 }
 
-let ones = 0;
+  let ones = 0;
   let twos = 0;
   let threes = 0;
   let fours = 0;
   let fives = 0;
   let sixes = 0;
 
-function checkScore(){
-  ones = 0;
-  twos = 0;
-  threes = 0;
-  fours = 0;
-  fives = 0;
-  sixes = 0;
+  function checkScore() {
+    ones = 0;
+    twos = 0;
+    threes = 0;
+    fours = 0;
+    fives = 0;
+    sixes = 0;
   
-  checkIfNum(one);
-  checkIfNum(two);
-  checkIfNum(three);
-  checkIfNum(four);
-  checkIfNum(five);
-  acesp1.textContent = ones;
-  twosp1.textContent = twos;
-  threesp1.textContent = threes;
-  foursp1.textContent = fours;
-  fivesp1.textContent = fives;
-  sixesp1.textContent = sixes;
-    const largep1 = document.getElementById("large--p1");
-    const smallp1 = document.getElementById("small--p1");
-    const fHousep1 = document.getElementById("full-house--p1");
+    checkIfNum(playerScores[playerTurn].one);
+    checkIfNum(playerScores[playerTurn].two);
+    checkIfNum(playerScores[playerTurn].three);
+    checkIfNum(playerScores[playerTurn].four);
+    checkIfNum(playerScores[playerTurn].five);
+  
+    // Selecteer de juiste HTML-elementen op basis van de huidige speler
+    const acesElement = document.getElementById(`aces--${playerTurn}`);
+    const twosElement = document.getElementById(`twos--${playerTurn}`);
+    const threesElement = document.getElementById(`threes--${playerTurn}`);
+    const foursElement = document.getElementById(`fours--${playerTurn}`);
+    const fivesElement = document.getElementById(`fives--${playerTurn}`);
+    const sixesElement = document.getElementById(`sixes--${playerTurn}`);
+    const largeElement = document.getElementById(`large--${playerTurn}`);
+    const smallElement = document.getElementById(`small--${playerTurn}`);
+  
+    acesElement.textContent = ones;
+    twosElement.textContent = twos;
+    threesElement.textContent = threes;
+    foursElement.textContent = fours;
+    fivesElement.textContent = fives;
+    sixesElement.textContent = sixes;
+  
+    if (ones >= 1 && twos >= 1 && threes >= 1 && fours >= 1 && fives >= 1 ||
+        twos >= 1 && threes >= 1 && fours >= 1 && fives >= 1 && sixes >= 1) {
+      largeElement.textContent = 40;
+    }
+    if (ones >= 1 && twos >= 1 && threes >= 1 && fours >= 1 ||
+        twos >= 1 && threes >= 1 && fours >= 1 && fives >= 1 || 
+        threes >= 1 && fours >= 1 && fives >= 1 && sixes >= 1) {
+      smallElement.textContent = 30;
+    } else {
+      largeElement.textContent = 0;
+      smallElement.textContent = 0;
+    }
+  }
 
-  if (ones >= 1 && twos >= 1 && threes >= 1 && fours >= 1 && fives >= 1 ||
-    twos >= 1 && threes >= 1 && fours >= 1 && fives >= 1 && sixes >= 1){
-    largep1.textContent = 40;
-  }else  if(ones >= 1 && twos >= 1 && threes >= 1 && fours >= 1 ||
-     twos >= 1 && threes >= 1 && fours >= 1 && fives >= 1 || 
-     threes >= 1 && fours >= 1 && fives >= 1 && sixes >= 1){
-    smallp1.textContent = 30;
-  } else if (ones == 3 && (twos == 2 || threes == 2 || fours == 2 || fives == 2 || sixes == 2) ||
-    twos == 3 && (ones == 2 || threes == 2 || fours == 2 || fives == 2 || sixes == 2) ||
-    threes == 3 && (ones == 2 || twos == 2 || fours == 2 || fives == 2 || sixes == 2) ||
-    fours == 3 && (ones == 2 || twos == 2 || threes == 2 || fives == 2 || sixes == 2) ||
-    fives == 3 && (ones == 2 || twos == 2 || threes == 2 || fours == 2 || sixes == 2) ||
-    sixes == 3 && (ones == 2 || twos == 2 || threes == 2 || fours == 2 || fives == 2)) {
-  fHousep1.textContent = 25;
-  } else{
-    largep1.textContent = 0;
-    smallp1.textContent = 0; 
-    fHousep1.textContent = 0;
+    
+
+  function fullHouse() {
+    const een = arrayCheck(1);
+    const twee = arrayCheck(2);
+    const drie = arrayCheck(3);
+    const vier = arrayCheck(4);
+    const vijf = arrayCheck(5);
+    console.log(een);
+    console.log(twee);
+    console.log(drie);
+    console.log(vier);
+    console.log(vijf);
+  
+    const tKindElement = document.getElementById(`tkind--${playerTurn}`);
+    const fKindElement = document.getElementById(`fkind--${playerTurn}`);
+    const fhouseElement = document.getElementById(`full-house--${playerTurn}`);
+    const yahtzee = document.getElementById(`yahtzee--${playerTurn}`);
+    const chance = document.getElementById(`chance--${playerTurn}`);
+   
+    if (een >= 3 || twee >= 3 || drie >= 3 || vier >= 3 || vijf >= 3) {
+      console.log('Three of a Kind block is executed');
+      console.log(`Values: ${playerScores[playerTurn].one}, ${playerScores[playerTurn].two}, ${playerScores[playerTurn].three}, ${playerScores[playerTurn].four}, ${playerScores[playerTurn].five}`);
+      tKindElement.textContent = playerScores[playerTurn].one + playerScores[playerTurn].two + playerScores[playerTurn].three + playerScores[playerTurn].four + playerScores[playerTurn].five;
+      console.log(`tKindElement.textContent: ${tKindElement.textContent}`);
+      console.log('Three of a Kind');
+    }
+    if ((een >= 3 && twee >= 2) || (een >= 2 && twee >= 3) || (twee >= 3 && drie >= 2) || (twee >= 2 && drie >= 3) || (vijf >= 2 && een >= 3) || (vijf >= 3 && een >= 2)) {
+      fhouseElement.textContent = "25";
+      console.log('Full House');
+    }
+    if (een >= 4 || twee >= 4) {
+      fKindElement.textContent =  one + two + three + four + five;
+      console.log('Four of a Kind');
+    }
+    if (een >= 5) {
+      yahtzee.textContent = 50;
+    } else {
+      fKindElement.textContent = 0;
+      tKindElement.textContent = 0;
+      fhouseElement.textContent = 0;
+      yahtzee.textContent = 0;
+    }
+    chance.textContent = one + two + three + four + five;
+  }
+  
+
+function arrayCheck(Stone){
+  let num = 0;
+  for (i= 0; i < newStone.length; i++){
+    if (newStone[i] === Stone){
+      num++;
+    }
+  }
+  return num;
+}
+
+function lockScore(id) {
+  let button = document.getElementById(id);
+  if (button.textContent == "-") return;
+  if (button.id.includes("p1") && playerTurn != "p1") return
+  if (button.id.includes("p2") && playerTurn != "p2") return
+  button.disabled = true;
+  if (button.disabled) {
+    let lockedScore = document.getElementById(`${id}--locked`);
+    lockedScore.textContent = button.textContent;
+    button.textContent = "-";
+  }
+  rollsLeft = 3;
+  console.log(rollsLeft)
+  rolls.textContent = rollsLeft;
+  console.log(rolls);
+  swapTurn();
+}
+
+function calculateTotalTop() {
+  let totalScore = 0;
+
+  bottomTotal = 0;
+
+  let ones = parseInt(document.getElementById(`aces--${playerTurn}--locked`).textContent);
+  let twos = parseInt(document.getElementById(`twos--${playerTurn}--locked`).textContent);
+  let threes = parseInt(document.getElementById(`threes--${playerTurn}--locked`).textContent);
+  let fours = parseInt(document.getElementById(`fours--${playerTurn}--locked`).textContent);
+  let fives = parseInt(document.getElementById(`fives--${playerTurn}--locked`).textContent);
+  let sixes = parseInt(document.getElementById(`sixes--${playerTurn}--locked`).textContent);
+  let tOfKind = parseInt(document.getElementById(`tkind--${playerTurn}--locked`).textContent);
+  let fOfKind = parseInt(document.getElementById(`fkind--${playerTurn}--locked`).textContent);
+  let fouse = parseInt(document.getElementById(`full-house--${playerTurn}--locked`).textContent);
+  let small = parseInt(document.getElementById(`small--${playerTurn}--locked`).textContent);
+  let large = parseInt(document.getElementById(`large--${playerTurn}--locked`).textContent);
+  let yahtzee = parseInt(document.getElementById(`yahtzee--${playerTurn}--locked`).textContent);
+  let chance = parseInt(document.getElementById(`chance--${playerTurn}--locked`).textContent);
+
+
+  totalScore = ones += twos += threes += fours += fives += sixes;
+  bottomTotal = tOfKind += fOfKind += fouse += small += large += yahtzee += chance;
+  
+  console.log("Total is " + totalScore);
+  if (totalScore >= 63) {
+    document.getElementById(`bonus--${playerTurn}--locked`).textContent = 35;
+    document.getElementById(`subtotal--${playerTurn}--locked--top`).textContent = totalScore;
+    document.getElementById(`total--${playerTurn}--locked--top`).textContent = totalScore + 35;
+    document.getElementById(`top--${playerTurn}--total`).textContent = totalScore + 35;
+  } else {
+    document.getElementById(`subtotal--${playerTurn}--locked--top`).textContent = totalScore;
+    document.getElementById(`total--${playerTurn}--locked--top`).textContent = totalScore;
+    document.getElementById(`grand--${playerTurn}--locked`).textContent = totalScore + bottomTotal;
+    document.getElementById(`bottom--${playerTurn}--locked`).textContent = bottomTotal;
+    document.getElementById(`top--${playerTurn}--total`).textContent = totalScore;        
   }
 }
 
+
+
 function checkIfNum(a) {
-    switch (a) {
-        case 1:
-            ones++;
-            break;
-        case 2:
-            twos += 2;
-            break;
-        case 3:
-            threes += 3;
-            break;
-        case 4:
-            fours += 4;
-            break;
-        case 5:
-            fives += 5;
-            break;
-        case 6:
-            sixes += 6;
-            break;
-    }
+  switch (a) {
+      case 1:
+          ones++;
+          break;
+      case 2:
+          twos += 2;
+          break;
+      case 3:
+          threes += 3;
+          break;
+      case 4:
+          fours += 4;
+          break;
+      case 5:
+          fives += 5;
+          break;
+      case 6:
+          sixes += 6;
+          break;
+  }
 }
 
+let een = 0;
+let twee = 0;
+let drie = 0;
+let vier = 0;
+let vijf = 0;
