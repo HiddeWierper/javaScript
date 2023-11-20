@@ -30,6 +30,7 @@ const die5 = document.getElementById("die5");
 
 
 function swapTurn() {
+  calculateTotalTop();
   if (p1Turn === true) {
       p1Turn = false;
       playerTurn = "p2"
@@ -39,7 +40,7 @@ function swapTurn() {
       document.getElementById("turn").textContent = "Player 1"
       p1Turn = true;
   }
-  roll()
+  roll();
 }
 
 let dieLock1 = false;
@@ -90,8 +91,12 @@ function roll() {
     }
     fullHouse();
     checkScore();
+    fourOfAKind();
+    threeOfAKind();
+    chance();
+    yahtzee();
   }
-  calculateTotalTop();
+
 } 
 
 function randomRoll() {
@@ -173,96 +178,132 @@ function borderChange(a, b) {
   let fives = 0;
   let sixes = 0;
 
-  function checkScore() {
-    ones = 0;
-    twos = 0;
-    threes = 0;
-    fours = 0;
-    fives = 0;
-    sixes = 0;
-  
-    checkIfNum(playerScores[playerTurn].one);
-    checkIfNum(playerScores[playerTurn].two);
-    checkIfNum(playerScores[playerTurn].three);
-    checkIfNum(playerScores[playerTurn].four);
-    checkIfNum(playerScores[playerTurn].five);
-  
-    // Selecteer de juiste HTML-elementen op basis van de huidige speler
-    const acesElement = document.getElementById(`aces--${playerTurn}`);
-    const twosElement = document.getElementById(`twos--${playerTurn}`);
-    const threesElement = document.getElementById(`threes--${playerTurn}`);
-    const foursElement = document.getElementById(`fours--${playerTurn}`);
-    const fivesElement = document.getElementById(`fives--${playerTurn}`);
-    const sixesElement = document.getElementById(`sixes--${playerTurn}`);
-    const largeElement = document.getElementById(`large--${playerTurn}`);
-    const smallElement = document.getElementById(`small--${playerTurn}`);
-  
-    acesElement.textContent = ones;
-    twosElement.textContent = twos;
-    threesElement.textContent = threes;
-    foursElement.textContent = fours;
-    fivesElement.textContent = fives;
-    sixesElement.textContent = sixes;
-  
-    if (ones >= 1 && twos >= 1 && threes >= 1 && fours >= 1 && fives >= 1 ||
-        twos >= 1 && threes >= 1 && fours >= 1 && fives >= 1 && sixes >= 1) {
-      largeElement.textContent = 40;
-    }
-    if (ones >= 1 && twos >= 1 && threes >= 1 && fours >= 1 ||
-        twos >= 1 && threes >= 1 && fours >= 1 && fives >= 1 || 
-        threes >= 1 && fours >= 1 && fives >= 1 && sixes >= 1) {
-      smallElement.textContent = 30;
-    } else {
-      largeElement.textContent = 0;
-      smallElement.textContent = 0;
-    }
+function checkScore() {
+  ones = 0;
+  twos = 0;
+  threes = 0;
+  fours = 0;
+  fives = 0;
+  sixes = 0;
+
+  checkIfNum(playerScores[playerTurn].one);
+  checkIfNum(playerScores[playerTurn].two);
+  checkIfNum(playerScores[playerTurn].three);
+  checkIfNum(playerScores[playerTurn].four);
+  checkIfNum(playerScores[playerTurn].five);
+
+  // Selecteer de juiste HTML-elementen op basis van de huidige speler
+  const acesElement = document.getElementById(`aces--${playerTurn}`);
+  const twosElement = document.getElementById(`twos--${playerTurn}`);
+  const threesElement = document.getElementById(`threes--${playerTurn}`);
+  const foursElement = document.getElementById(`fours--${playerTurn}`);
+  const fivesElement = document.getElementById(`fives--${playerTurn}`);
+  const sixesElement = document.getElementById(`sixes--${playerTurn}`);
+  const largeElement = document.getElementById(`large--${playerTurn}`);
+  const smallElement = document.getElementById(`small--${playerTurn}`);
+
+  acesElement.textContent = ones;
+  twosElement.textContent = twos;
+  threesElement.textContent = threes;
+  foursElement.textContent = fours;
+  fivesElement.textContent = fives;
+  sixesElement.textContent = sixes;
+
+  if (ones >= 1 && twos >= 1 && threes >= 1 && fours >= 1 && fives >= 1 ||
+      twos >= 1 && threes >= 1 && fours >= 1 && fives >= 1 && sixes >= 1) {
+    largeElement.textContent = 40;
   }
+  if (ones >= 1 && twos >= 1 && threes >= 1 && fours >= 1 ||
+      twos >= 1 && threes >= 1 && fours >= 1 && fives >= 1 || 
+      threes >= 1 && fours >= 1 && fives >= 1 && sixes >= 1) {
+    smallElement.textContent = 30;
+  } else {
+    largeElement.textContent = 0;
+    smallElement.textContent = 0;
+  }
+}
 
-    
-
-  function fullHouse() {
-    const een = arrayCheck(1);
-    const twee = arrayCheck(2);
-    const drie = arrayCheck(3);
-    const vier = arrayCheck(4);
-    const vijf = arrayCheck(5);
-    console.log(een);
-    console.log(twee);
-    console.log(drie);
-    console.log(vier);
-    console.log(vijf);
   
-    const tKindElement = document.getElementById(`tkind--${playerTurn}`);
-    const fKindElement = document.getElementById(`fkind--${playerTurn}`);
-    const fhouseElement = document.getElementById(`full-house--${playerTurn}`);
-    const yahtzee = document.getElementById(`yahtzee--${playerTurn}`);
-    const chance = document.getElementById(`chance--${playerTurn}`);
-   
-    if (een >= 3 || twee >= 3 || drie >= 3 || vier >= 3 || vijf >= 3) {
-      console.log('Three of a Kind block is executed');
-      console.log(`Values: ${playerScores[playerTurn].one}, ${playerScores[playerTurn].two}, ${playerScores[playerTurn].three}, ${playerScores[playerTurn].four}, ${playerScores[playerTurn].five}`);
-      tKindElement.textContent = playerScores[playerTurn].one + playerScores[playerTurn].two + playerScores[playerTurn].three + playerScores[playerTurn].four + playerScores[playerTurn].five;
-      console.log(`tKindElement.textContent: ${tKindElement.textContent}`);
-      console.log('Three of a Kind');
-    }
-    if ((een >= 3 && twee >= 2) || (een >= 2 && twee >= 3) || (twee >= 3 && drie >= 2) || (twee >= 2 && drie >= 3) || (vijf >= 2 && een >= 3) || (vijf >= 3 && een >= 2)) {
+function threeOfAKind(){
+
+  const een = arrayCheck(1);
+  const twee = arrayCheck(2);
+  const drie = arrayCheck(3);
+  const vier = arrayCheck(4);
+  const vijf = arrayCheck(5);
+  console.log(een);
+  console.log(twee);
+  console.log(drie);
+  console.log(vier);
+  console.log(vijf);
+
+  const tKindElement = document.getElementById(`tkind--${playerTurn}`);
+
+  if (een >= 3 || twee >= 3 || drie >= 3 || vier >= 3 || vijf >= 3) {
+    console.log('Three of a Kind block is executed');
+    console.log(`Values: ${playerScores[playerTurn].one}, ${playerScores[playerTurn].two}, ${playerScores[playerTurn].three}, ${playerScores[playerTurn].four}, ${playerScores[playerTurn].five}`);
+    tKindElement.textContent = playerScores[playerTurn].one + playerScores[playerTurn].two + playerScores[playerTurn].three + playerScores[playerTurn].four + playerScores[playerTurn].five;
+    console.log(`tKindElement.textContent: ${tKindElement.textContent}`);
+    console.log('Three of a Kind');
+  }else{
+    tKindElement.textContent = 0;
+  }
+}
+
+function fourOfAKind(){
+  const een = arrayCheck(1);
+  const twee = arrayCheck(2);
+  const drie = arrayCheck(3);
+  const vier = arrayCheck(4);
+  const vijf = arrayCheck(5);
+  console.log(een);
+  console.log(twee);
+  console.log(drie);
+  console.log(vier);
+  console.log(vijf);
+
+  const fKindElement = document.getElementById(`fkind--${playerTurn}`);
+
+  if (een >= 4 || twee >= 4 || drie >= 4 || vier >= 4 || vijf >= 4) {
+    console.log("hoi");
+    fKindElement.textContent = playerScores[playerTurn].one + playerScores[playerTurn].two + playerScores[playerTurn].three + playerScores[playerTurn].four + playerScores[playerTurn].five;
+  }else{
+    fKindElement.textContent = 0;
+  }
+}
+
+
+function fullHouse() {
+  const counts = [arrayCheck(1), arrayCheck(2), arrayCheck(3), arrayCheck(4), arrayCheck(5)];
+  
+  const fhouseElement = document.getElementById(`full-house--${playerTurn}`);
+
+  // Check if there are exactly three of one number and two of another
+  if (counts.includes(3) && counts.includes(2)) {
       fhouseElement.textContent = "25";
       console.log('Full House');
-    }
-    if (een >= 4 || twee >= 4) {
-      fKindElement.textContent =  one + two + three + four + five;
-      console.log('Four of a Kind');
-    }
-    if (een >= 5) {
-      yahtzee.textContent = 50;
-    } else {
-      fKindElement.textContent = 0;
-      tKindElement.textContent = 0;
+  } else {
       fhouseElement.textContent = 0;
-      yahtzee.textContent = 0;
-    }
-    chance.textContent = one + two + three + four + five;
   }
+}
+
+function chance(){
+  const chanceElement =  document.getElementById(`chance--${playerTurn}`);
+
+  chanceElement.textContent = playerScores[playerTurn].one + playerScores[playerTurn].two + playerScores[playerTurn].three + playerScores[playerTurn].four + playerScores[playerTurn].five;
+}
+
+function yahtzee(){
+  const counts = [arrayCheck(1), arrayCheck(2), arrayCheck(3), arrayCheck(4), arrayCheck(5)];
+
+  const yahtzeeElement =  document.getElementById(`yahtzee--${playerTurn}`);
+
+  if (counts.includes(5)){
+    yahtzeeElement.textContent = 50;
+  }else{
+    yahtzeeElement.textContent = 0;
+  }
+}
   
 
 function arrayCheck(Stone){
@@ -296,7 +337,7 @@ function lockScore(id) {
 function calculateTotalTop() {
   let totalScore = 0;
 
-  bottomTotal = 0;
+  let bottomTotal = 0;
 
   let ones = parseInt(document.getElementById(`aces--${playerTurn}--locked`).textContent);
   let twos = parseInt(document.getElementById(`twos--${playerTurn}--locked`).textContent);
@@ -325,6 +366,7 @@ function calculateTotalTop() {
   } else {
     document.getElementById(`subtotal--${playerTurn}--locked--top`).textContent = totalScore;
     document.getElementById(`total--${playerTurn}--locked--top`).textContent = totalScore;
+    document.getElementById(`total--${playerTurn}--locked`).textContent = totalScore;
     document.getElementById(`grand--${playerTurn}--locked`).textContent = totalScore + bottomTotal;
     document.getElementById(`bottom--${playerTurn}--locked`).textContent = bottomTotal;
     document.getElementById(`top--${playerTurn}--total`).textContent = totalScore;        
