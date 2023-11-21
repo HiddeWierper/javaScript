@@ -41,6 +41,14 @@ function swapTurn() {
       p1Turn = true;
   }
   roll();
+
+  
+ dieLock1 = false;
+ dieLock2 = false;
+ dieLock3 = false;
+ dieLock4 = false;
+ dieLock5 = false;
+
 }
 
 let dieLock1 = false;
@@ -52,7 +60,7 @@ let dieLock5 = false;
 
 function roll() {
   if (hold = true){
-    if (rollsLeft > -999){
+    if (rollsLeft > 0){
     rollsLeft--;
     if(!dieLock1){
     die1.src = randomRoll();
@@ -317,6 +325,24 @@ function arrayCheck(Stone){
 }
 
 function lockScore(id) {
+
+  dieLock1 = false;
+  dieLock2 = false;
+  dieLock3 = false;
+  dieLock4 = false;
+  dieLock5 = false;
+
+  die1.style.borderColor = "black";
+  
+  die2.style.borderColor = "black";
+  
+  die3.style.borderColor = "black";
+  
+  die4.style.borderColor = "black";
+  
+  die5.style.borderColor = "black";
+
+
   let button = document.getElementById(id);
   if (button.textContent == "-") return;
   if (button.id.includes("p1") && playerTurn != "p1") return
