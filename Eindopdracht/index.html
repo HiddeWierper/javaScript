@@ -14,8 +14,8 @@
   <div class="content">
     <div class="header">
       <div class="names header--item">
-        <p id="name1">Player 1</p>
-        <p id="name2">Player 2</p>
+        <p id="name1">Naam</p>
+        <p id="name2">Naam</p>
       </div>
       <div class="turn header--item">
         <p class="header--text">Turn</p>
@@ -34,7 +34,10 @@
     </div>
     <div class="main">
       <div class="p1 player main--item">
-        <div contenteditable class="name player--item" id="eNameL">Naam</div>
+        <div class="name player--item">
+          <p contenteditable id="eNameL">Naam</p>
+          <button onclick="changeName()" contenteditable="false" class="btn">Submit</button>
+        </div>
         <div class="top player--item">
           <div class="singles top--item">
             <p>Aces</p>
@@ -49,12 +52,12 @@
           </div>
           <div class="score--indicator top--item">
             <!--de blauwe vakjes, hier kies je welke punten je wilt gebruiken-->
-            <button onclick="lockScore('aces--p1')" class="temp--score" id="aces--p1">0</button>
-            <button onclick="lockScore('twos--p1')" class="temp--score" id="twos--p1">0</button>
-            <button onclick="lockScore('threes--p1')" class="temp--score" id="threes--p1">0</button>
-            <button onclick="lockScore('fours--p1')" class="temp--score" id="fours--p1">0</button>
-            <button onclick="lockScore('fives--p1')" class="temp--score" id="fives--p1">0</button>
-            <button onclick="lockScore('sixes--p1')" class="temp--score" id="sixes--p1">0</button>
+            <button onclick="confirmChoice('aces--p1')" class="temp--score" id="aces--p1">0</button>
+            <button onclick="confirmChoice('twos--p1')" class="temp--score" id="twos--p1">0</button>
+            <button onclick="confirmChoice('threes--p1')" class="temp--score" id="threes--p1">0</button>
+            <button onclick="confirmChoice('fours--p1')" class="temp--score" id="fours--p1">0</button>
+            <button onclick="confirmChoice('fives--p1')" class="temp--score" id="fives--p1">0</button>
+            <button onclick="confirmChoice('sixes--p1')" class="temp--score" id="sixes--p1">0</button>
           </div>
           <div class="score--locked top--item">
             <!--de beige vakjes, hier zie je hoeveel punten er gewonnen zijn in die rij-->
@@ -83,13 +86,13 @@
             <p>Total</p>
           </div>
           <div class="score--indicator bottom--item">
-            <button onclick="lockScore('tkind--p1')" class="temp--score" id="tkind--p1">0</button>
-            <button onclick="lockScore('fkind--p1')" class="temp--score" id="fkind--p1">0</button>
-            <button onclick="lockScore('full-house--p1')" class="temp--score" id="full-house--p1">0</button>
-            <button onclick="lockScore('small--p1')" class="temp--score" id="small--p1">0</button>
-            <button onclick="lockScore('large--p1')" class="temp--score" id="large--p1">0</button>
-            <button onclick="lockScore('yahtzee--p1')" class="temp--score" id="yahtzee--p1">0</button>
-            <button onclick="lockScore('chance--p1')" class="temp--score" id="chance--p1">0</button>
+            <button onclick="confirmChoice('tkind--p1')" class="temp--score" id="tkind--p1">0</button>
+            <button onclick="confirmChoice('fkind--p1')" class="temp--score" id="fkind--p1">0</button>
+            <button onclick="confirmChoice('full-house--p1')" class="temp--score" id="full-house--p1">0</button>
+            <button onclick="confirmChoice('small--p1')" class="temp--score" id="small--p1">0</button>
+            <button onclick="confirmChoice('large--p1')" class="temp--score" id="large--p1">0</button>
+            <button onclick="confirmChoice('yahtzee--p1')" class="temp--score" id="yahtzee--p1">0</button>
+            <button onclick="confirmChoice('chance--p1')" class="temp--score" id="chance--p1">0</button>
           </div>
           <div class="score--locked bottom--item">
             <p class="locked--score" id="tkind--p1--locked">0</p>
@@ -130,7 +133,10 @@
       </div>
       <!-- alles in p2 is hetzelfde als p1, als je niet de 2 player versie wil maken haal deze div dan weg en verander de header-->
       <div class="p2 player main--item">
-        <div contenteditable class="name player--item" id="eNameR">Naam</div>
+        <div class="name player--item">
+          <p contenteditable id="eNameR">Naam</p>
+          <button onclick="changeName()" contenteditable="false" class="btn">Submit</button>
+        </div>
         <div class="top player--item">
           <div class="singles top--item">
             <p>Aces</p>
@@ -144,12 +150,12 @@
             <p>Total</p>
           </div>
           <div class="score--indicator top--item">
-            <button onclick="lockScore('aces--p2')" class="temp--score" id="aces--p2">0</button>
-            <button onclick="lockScore('twos--p2')" class="temp--score" id="twos--p2">0</button>
-            <button onclick="lockScore('threes--p2')" class="temp--score" id="threes--p2">0</button>
-            <button onclick="lockScore('fours--p2')" class="temp--score" id="fours--p2">0</button>
-            <button onclick="lockScore('fives--p2')" class="temp--score" id="fives--p2">0</button>
-            <button onclick="lockScore('sixes--p2')" class="temp--score" id="sixes--p2">0</button>
+            <button onclick="confirmChoice('aces--p2')" class="temp--score" id="aces--p2">0</button>
+            <button onclick="confirmChoice('twos--p2')" class="temp--score" id="twos--p2">0</button>
+            <button onclick="confirmChoice('threes--p2')" class="temp--score" id="threes--p2">0</button>
+            <button onclick="confirmChoice('fours--p2')" class="temp--score" id="fours--p2">0</button>
+            <button onclick="confirmChoice('fives--p2')" class="temp--score" id="fives--p2">0</button>
+            <button onclick="confirmChoice('sixes--p2')" class="temp--score" id="sixes--p2">0</button>
           </div>
           <div class="score--locked top--item">
             <p class="locked--score" id="aces--p2--locked">0</p>
@@ -177,13 +183,13 @@
             <p>Total</p>
           </div>
           <div class="score--indicator bottom--item">
-            <button onclick="lockScore('tkind--p2')" class="temp--score" id="tkind--p2">0</button>
-            <button onclick="lockScore('fkind--p2')" class="temp--score" id="fkind--p2">0</button>
-            <button onclick="lockScore('full-house--p2')" class="temp--score" id="full-house--p2">0</button>
-            <button onclick="lockScore('small--p2')" class="temp--score" id="small--p2">0</button>
-            <button onclick="lockScore('large--p2')" class="temp--score" id="large--p2">0</button>
-            <button onclick="lockScore('yahtzee--p2')" class="temp--score" id="yahtzee--p2">0</button>
-            <button onclick="lockScore('chance--p2')" class="temp--score" id="chance--p2">0</button>
+            <button onclick="confirmChoice('tkind--p2')" class="temp--score" id="tkind--p2">0</button>
+            <button onclick="confirmChoice('fkind--p2')" class="temp--score" id="fkind--p2">0</button>
+            <button onclick="confirmChoice('full-house--p2')" class="temp--score" id="full-house--p2">0</button>
+            <button onclick="confirmChoice('small--p2')" class="temp--score" id="small--p2">0</button>
+            <button onclick="confirmChoice('large--p2')" class="temp--score" id="large--p2">0</button>
+            <button onclick="confirmChoice('yahtzee--p2')" class="temp--score" id="yahtzee--p2">0</button>
+            <button onclick="confirmChoice('chance--p2')" class="temp--score" id="chance--p2">0</button>
           </div>
           <div class="score--locked bottom--item">
             <p class="locked--score" id="tkind--p2--locked">0</p>

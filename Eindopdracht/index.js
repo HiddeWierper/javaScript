@@ -20,13 +20,17 @@ let playerScores = {
   p2: { one: 0, two: 0, three: 0, four: 0, five: 0 }
 };
 
-
 const rolls = document.getElementById("rolls");
 const die1 = document.getElementById("die1");
 const die2 = document.getElementById("die2");
 const die3 = document.getElementById("die3");
 const die4 = document.getElementById("die4");
 const die5 = document.getElementById("die5");
+const eNameL = document.getElementById("eNameL");
+const eNameR = document.getElementById("eNameR");
+const player1 = document.getElementById("name1");
+const player2 = document.getElementById("name2");
+const turn = document.getElementById("turn");
 
 
 function swapTurn() {
@@ -34,14 +38,13 @@ function swapTurn() {
   if (p1Turn === true) {
       p1Turn = false;
       playerTurn = "p2"
-      document.getElementById("turn").textContent = "Player 2"
+      document.getElementById("turn").textContent = eNameR.textContent;
+      
   } else {
       playerTurn = "p1"
-      document.getElementById("turn").textContent = "Player 1"
+      document.getElementById("turn").textContent = eNameL.textContent;
       p1Turn = true;
   }
-  roll();
-
   
  dieLock1 = false;
  dieLock2 = false;
@@ -49,6 +52,7 @@ function swapTurn() {
  dieLock4 = false;
  dieLock5 = false;
 
+ roll();
 }
 
 let dieLock1 = false;
@@ -57,10 +61,19 @@ let dieLock3 = false;
 let dieLock4 = false;
 let dieLock5 = false;
 
+function changeName(){
+  if(p1Turn){
+    turn.textContent = eNameL.textContent;
+  }if (!p1Turn){
+    turn.textContent = eNameR.textContent;
+  }
+  player1.textContent = eNameL.textContent;
+  player2.textContent = eNameR.textContent;
+}
 
 function roll() {
   if (hold = true){
-    if (rollsLeft > 0){
+    if (rollsLeft > -999){
     rollsLeft--;
     if(!dieLock1){
     die1.src = randomRoll();
@@ -174,8 +187,11 @@ function lockDice(dice) {
 function borderChange(a, b) {
   if (b % 2 !== 0) {
       a.style.borderColor = "red";
+      a.style.borderWidth = "5px";
   } else {
       a.style.borderColor = "black";
+      a.style.borderWidth = ""
+  
   }
 }
 
@@ -273,7 +289,6 @@ function fourOfAKind(){
   const fKindElement = document.getElementById(`fkind--${playerTurn}`);
 
   if (een >= 4 || twee >= 4 || drie >= 4 || vier >= 4 || vijf >= 4) {
-    console.log("hoi");
     fKindElement.textContent = playerScores[playerTurn].one + playerScores[playerTurn].two + playerScores[playerTurn].three + playerScores[playerTurn].four + playerScores[playerTurn].five;
   }else{
     fKindElement.textContent = 0;
@@ -324,7 +339,16 @@ function arrayCheck(Stone){
   return num;
 }
 
+function confirmChoice(id) {
+  let text = "u Sure?";
+  if (confirm(text)) {
+    lockScore(id);
+  } 
+}
+
 function lockScore(id) {
+
+
 
   dieLock1 = false;
   dieLock2 = false;
@@ -333,16 +357,15 @@ function lockScore(id) {
   dieLock5 = false;
 
   die1.style.borderColor = "black";
-  
   die2.style.borderColor = "black";
-  
   die3.style.borderColor = "black";
-  
   die4.style.borderColor = "black";
-  
   die5.style.borderColor = "black";
-
-
+  die1.style.borderWidth = "";
+  die2.style.borderWidth = "";
+  die3.style.borderWidth = "";
+  die4.style.borderWidth = "";
+  die5.style.borderWidth = "";
   let button = document.getElementById(id);
   if (button.textContent == "-") return;
   if (button.id.includes("p1") && playerTurn != "p1") return
