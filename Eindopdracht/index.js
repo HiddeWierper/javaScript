@@ -297,7 +297,7 @@ function fourOfAKind(){
 
 
 function fullHouse() {
-  const counts = [arrayCheck(1), arrayCheck(2), arrayCheck(3), arrayCheck(4), arrayCheck(5)];
+  const counts = [arrayCheck(1), arrayCheck(2), arrayCheck(3), arrayCheck(4), arrayCheck(5), arrayCheck(6)]; // Add check for 6
   
   const fhouseElement = document.getElementById(`full-house--${playerTurn}`);
 
@@ -316,6 +316,16 @@ function chance(){
   chanceElement.textContent = playerScores[playerTurn].one + playerScores[playerTurn].two + playerScores[playerTurn].three + playerScores[playerTurn].four + playerScores[playerTurn].five;
 }
 
+function arrayCheck(Stone){
+  let num = 0;
+  for (i= 0; i < newStone.length; i++){
+    if (newStone[i] === Stone){
+      num++;
+    }
+  }
+  return num;
+}
+
 function yahtzee(){
   const counts = [arrayCheck(1), arrayCheck(2), arrayCheck(3), arrayCheck(4), arrayCheck(5)];
 
@@ -329,15 +339,7 @@ function yahtzee(){
 }
   
 
-function arrayCheck(Stone){
-  let num = 0;
-  for (i= 0; i < newStone.length; i++){
-    if (newStone[i] === Stone){
-      num++;
-    }
-  }
-  return num;
-}
+
 
 function confirmChoice(id) {
   let text = "u Sure?";
