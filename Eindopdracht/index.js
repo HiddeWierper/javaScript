@@ -111,7 +111,8 @@ function roll() {
     rolls.textContent = rollsLeft;
     }
     fullHouse();
-    checkScore();
+    large();
+    small();
     fourOfAKind();
     threeOfAKind();
     chance();
@@ -151,36 +152,40 @@ let unlock2 = 0;
 let unlock3 = 0;
 let unlock4 = 0;
 let unlock5 = 0;
-
 function lockDice(dice) {
+  if (rollsLeft === 3) {
+    alert("KlOOTVIOOL, you can't lock dice on the first");
+    return;
+  }
+
   switch (dice) {
-      case "die1":
-          unlock1++;
-          dieLock1 = unlock1 % 2 !== 0;
-          borderChange(die1, unlock1);
-          break;
-      case "die2":
-          unlock2++;
-          dieLock2 = unlock2 % 2 !== 0;
-          borderChange(die2, unlock2);
-          break;
-      case "die3":
-          unlock3++;
-          dieLock3 = unlock3 % 2 !== 0;
-          borderChange(die3, unlock3);
-          break;
-      case "die4":
-          unlock4++;
-          dieLock4 = unlock4 % 2 !== 0;
-          borderChange(die4, unlock4);
-          break;
-      case "die5":
-          unlock5++;
-          dieLock5 = unlock5 % 2 !== 0;
-          borderChange(die5, unlock5);
-          break;
-      default:
-          break;
+    case "die1":
+      unlock1++;
+      dieLock1 = unlock1 % 2 !== 0;
+      borderChange(die1, unlock1);
+      break;
+    case "die2":
+      unlock2++;
+      dieLock2 = unlock2 % 2 !== 0;
+      borderChange(die2, unlock2);
+      break;
+    case "die3":
+      unlock3++;
+      dieLock3 = unlock3 % 2 !== 0;
+      borderChange(die3, unlock3);
+      break;
+    case "die4":
+      unlock4++;
+      dieLock4 = unlock4 % 2 !== 0;
+      borderChange(die4, unlock4);
+      break;
+    case "die5":
+      unlock5++;
+      dieLock5 = unlock5 % 2 !== 0;
+      borderChange(die5, unlock5);
+      break;
+    default:
+      break;
   }
 }
 
@@ -202,7 +207,7 @@ function borderChange(a, b) {
   let fives = 0;
   let sixes = 0;
 
-function checkScore() {
+function large() {
   ones = 0;
   twos = 0;
   threes = 0;
@@ -237,14 +242,51 @@ function checkScore() {
       twos >= 1 && threes >= 1 && fours >= 1 && fives >= 1 && sixes >= 1) {
     largeElement.textContent = 40;
   }
+   else {
+    largeElement.textContent = 0;
+  }
+}
+
+function small(){
+  ones = 0;
+  twos = 0;
+  threes = 0;
+  fours = 0;
+  fives = 0;
+  sixes = 0;
+
+  checkIfNum(playerScores[playerTurn].one);
+  checkIfNum(playerScores[playerTurn].two);
+  checkIfNum(playerScores[playerTurn].three);
+  checkIfNum(playerScores[playerTurn].four);
+  checkIfNum(playerScores[playerTurn].five);
+
+  // Selecteer de juiste HTML-elementen op basis van de huidige speler
+  const acesElement = document.getElementById(`aces--${playerTurn}`);
+  const twosElement = document.getElementById(`twos--${playerTurn}`);
+  const threesElement = document.getElementById(`threes--${playerTurn}`);
+  const foursElement = document.getElementById(`fours--${playerTurn}`);
+  const fivesElement = document.getElementById(`fives--${playerTurn}`);
+  const sixesElement = document.getElementById(`sixes--${playerTurn}`);
+  const largeElement = document.getElementById(`large--${playerTurn}`);
+  const smallElement = document.getElementById(`small--${playerTurn}`);
+
+  acesElement.textContent = ones;
+  twosElement.textContent = twos;
+  threesElement.textContent = threes;
+  foursElement.textContent = fours;
+  fivesElement.textContent = fives;
+  sixesElement.textContent = sixes;
+
+
   if (ones >= 1 && twos >= 1 && threes >= 1 && fours >= 1 ||
       twos >= 1 && threes >= 1 && fours >= 1 && fives >= 1 || 
       threes >= 1 && fours >= 1 && fives >= 1 && sixes >= 1) {
     smallElement.textContent = 30;
   } else {
-    largeElement.textContent = 0;
     smallElement.textContent = 0;
   }
+
 }
 
   
@@ -255,6 +297,7 @@ function threeOfAKind(){
   const drie = arrayCheck(3);
   const vier = arrayCheck(4);
   const vijf = arrayCheck(5);
+  const zes = arrayCheck(6);
   console.log(een);
   console.log(twee);
   console.log(drie);
@@ -263,7 +306,7 @@ function threeOfAKind(){
 
   const tKindElement = document.getElementById(`tkind--${playerTurn}`);
 
-  if (een >= 3 || twee >= 3 || drie >= 3 || vier >= 3 || vijf >= 3) {
+  if (een >= 3 || twee >= 3 || drie >= 3 || vier >= 3 || vijf >= 3 || zes >= 3) {
     console.log('Three of a Kind block is executed');
     console.log(`Values: ${playerScores[playerTurn].one}, ${playerScores[playerTurn].two}, ${playerScores[playerTurn].three}, ${playerScores[playerTurn].four}, ${playerScores[playerTurn].five}`);
     tKindElement.textContent = playerScores[playerTurn].one + playerScores[playerTurn].two + playerScores[playerTurn].three + playerScores[playerTurn].four + playerScores[playerTurn].five;
@@ -280,6 +323,7 @@ function fourOfAKind(){
   const drie = arrayCheck(3);
   const vier = arrayCheck(4);
   const vijf = arrayCheck(5);
+  const zes = arrayCheck(6);
   console.log(een);
   console.log(twee);
   console.log(drie);
@@ -288,7 +332,7 @@ function fourOfAKind(){
 
   const fKindElement = document.getElementById(`fkind--${playerTurn}`);
 
-  if (een >= 4 || twee >= 4 || drie >= 4 || vier >= 4 || vijf >= 4) {
+  if (een >= 4 || twee >= 4 || drie >= 4 || vier >= 4 || vijf >= 4 || zes >= 4) {
     fKindElement.textContent = playerScores[playerTurn].one + playerScores[playerTurn].two + playerScores[playerTurn].three + playerScores[playerTurn].four + playerScores[playerTurn].five;
   }else{
     fKindElement.textContent = 0;
@@ -327,7 +371,7 @@ function arrayCheck(Stone){
 }
 
 function yahtzee(){
-  const counts = [arrayCheck(1), arrayCheck(2), arrayCheck(3), arrayCheck(4), arrayCheck(5)];
+  const counts = [arrayCheck(1), arrayCheck(2), arrayCheck(3), arrayCheck(4), arrayCheck(5), arrayCheck(6)];
 
   const yahtzeeElement =  document.getElementById(`yahtzee--${playerTurn}`);
 
