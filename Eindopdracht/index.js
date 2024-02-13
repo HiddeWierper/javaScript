@@ -73,7 +73,7 @@ function changeName(){
 
 function roll() {
   if (hold = true){
-    if (rollsLeft > -999){
+    if (rollsLeft > 0){
     rollsLeft--;
     if(!dieLock1){
     die1.src = randomRoll();
