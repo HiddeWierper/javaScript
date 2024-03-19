@@ -72,7 +72,7 @@ function changeName(){
 }
 
 function roll() {
-  if (hold = true){
+  if (hold = true){ 
     if (rollsLeft > 0){
     rollsLeft--;
     if(!dieLock1){
@@ -154,7 +154,7 @@ let unlock4 = 0;
 let unlock5 = 0;
 function lockDice(dice) {
   if (rollsLeft === 3) {
-    alert("KlOOTVIOOL, you can't lock dice on the first");
+    alert("KLOOTVIOOL, you can't lock dice on the first");
     return;
   }
 
