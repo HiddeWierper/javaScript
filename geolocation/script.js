@@ -58,6 +58,28 @@ if (navigator.geolocation) {
 } else {
     console.error("Geolocation is not supported by this browser.");
 }
+
+function printLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                console.log("Latitude: " + latitude);
+                console.log("Longitude: " + longitude);
+
+                document.getElementById("jo").textContent = "Latitude: " + latitude + "<br>Longitude: " + longitude;  
+            },
+            function(error) {
+                console.error("Error getting location:", error);
+            }
+        );
+    } else {
+        console.error("Geolocation is not supported by this browser.");
+    }
+}
+
+setInterval(printLocation, 1000);
 // }
 
 // setInterval(getLocation, 10000);
